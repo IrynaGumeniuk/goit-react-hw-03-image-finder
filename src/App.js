@@ -8,7 +8,7 @@ import Modal from "./components/Modal/Modal";
 
 class App extends Component {
   state = {
-    searchQuery: "beagle",
+    searchQuery: "",
     page: 1,
     listImages: null,
     loading: false,
@@ -71,14 +71,10 @@ class App extends Component {
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit} />
-        {listImages && (
-          <ImageGallery listImages={listImages} onClick={this.openModal} />
-        )}
+        {listImages && (<ImageGallery listImages={listImages} onClick={this.openModal} />)}
         {loading && <Loader />}
         {listImages && <Button onClick={this.loadMore} />}
-        {showModal && (
-          <Modal url={this.state.largeImage} onClose={this.onClose} />
-        )}
+        {showModal && (<Modal url={this.state.largeImage} onClose={this.onClose} />)}
       </>
     );
   }
