@@ -15,12 +15,6 @@ class App extends Component {
     showModal: false,
   };
 
-  componentDidMount() {
-    fetchImages(this.state.searchQuery)
-      .then((data) => this.setState({ listImages: data }))
-      .catch((err) => console.log("Error:", err));
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (prevState.searchQuery !== this.state.searchQuery) {
 
@@ -39,11 +33,6 @@ class App extends Component {
           this.setState((prevState) => ({
             listImages: [...prevState.listImages, ...data],
           }));
-
-          window.scrollTo({
-            top: document.documentElement.scrollHeight,
-            behavior: "smooth",
-          })
         })
 
         .catch((err) => console.log("Error:", err));
@@ -56,6 +45,10 @@ class App extends Component {
 
   loadMore = () => {
     this.setState((prevState) => ({ page: prevState.page + 1 }));
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    })
   };
 
   openModal = (imageURL) => {
