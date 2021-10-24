@@ -1,13 +1,13 @@
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Searchbar from './Components/Searchbar';
-import ImageGallery from './Components/ImageGallery';
+import Searchbar from './components/Searchbar';
+import ImageGallery from './components/ImageGallery';
 import styles from './App.module.css';
 import imgApi from './Api';
-import Button from './Components/Button';
-import Modal from './Components/Modal';
-import Load from './Components/Loader';
+import Button from './components/Button';
+import Modal from './components/Modal';
+import Load from './components/Loader';
 
 class App extends React.Component {
   state = {
