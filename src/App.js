@@ -1,4 +1,4 @@
-import React from 'react';
+import {Component} from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Searchbar from './components/Searchbar';
@@ -9,7 +9,7 @@ import Button from './components/Button';
 import Modal from './components/Modal';
 import Load from './components/Loader';
 
-class App extends React.Component {
+class App extends Component {
   state = {
     imgName: '',
     page: 1,
@@ -104,13 +104,13 @@ class App extends React.Component {
         <ImageGallery images={images} onImgClick={this.onImgClick} />
         {isLoading && <Load />}
         {images.length > 0 && !isLoading && (
-          <Button onBtnClick={this.OnLoadMore} text={'Загрузить еще'} />
+          <Button onBtnClick={this.OnLoadMore} text={'Load more'} />
         )}
         <ToastContainer autoClose={3000} />
 
         {openModal && (
           <Modal onCloseModal={this.toggleModal}>
-            <img src={currentImages} alt="Dont Worry Be Happy" />
+            <img src={currentImages} alt="Modal" />
           </Modal>
         )}
       </div>
