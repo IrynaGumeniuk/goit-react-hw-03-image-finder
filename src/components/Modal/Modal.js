@@ -1,51 +1,33 @@
-import React, { Component, createRef } from "react";
-import styles from "./Modal.module.css";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import styles from './Modal.module.css';
 
-class Modal extends Component {
-    componentDidMount() {
-        window.addEventListener("keydown", this.modalKeyDown);
+export default class Modal extends Component {
+  static propTypes = {
+    onCloseModal: PropTypes.func,
+  };
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.onKeydownClick);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.onKeydownClick);
+  }
+
+  onKeydownClick = e => {
+    const { onCloseModal } = this.props;
+    if (e.code === 'Escape') {
+      onCloseModal();
     }
+  };
 
-    componentWillMount() {
-        window.removeEventListener("keydown", this.modalKeyDown);
-    }
-
-    modalKeyDown = ({ key }) => {
-        if (key === "Escape") {
-            this.props.onClose();
-        }
-    };
-
-    closeOnClick = ({ target, currentTarget }) => {
-        if (target !== currentTarget) {
-            this.props.onClose();
-        }
-    };
-
-    backdropRef = createRef();
-
-    modalClick = (e) => {
-        const { current } = this.backdropRef;
-        if (current && e.target !== current) {
-            return;
-        }
-        this.props.onClose();
-    };
-
-    render() {
-        const { url } = this.props;
-        return (
-            <div
-                onClick={this.modalClick}
-                className={styles.Overlay}
-                ref={this.backdropRef}
-            >
-                <div className={styles.Modal} onClick={this.closeOnClick}>
-                    <img src={url} alt="img" />
-                </div>
-            </div>
-        );
-    }
+  render() {
+    const { children, onCloseModal } = this.props;
+    return (
+      <div className={styles.Overlay} onClick={onCloseModal}>
+        <div className={styles.Modal}>{children}</div>
+      </div>
+    );
+  }
 }
-
-export default Modal;
